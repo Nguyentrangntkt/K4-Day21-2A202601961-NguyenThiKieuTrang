@@ -71,12 +71,14 @@ jobs:
               raise SystemExit(f"STORAGE_CREDENTIALS is missing: {', '.join(missing)}")
 
           with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as env_file:
-              env_file.write(f"AWS_ACCESS_KEY_ID={credentials['aws_access_key_id']}\\n")
-              env_file.write(f"AWS_SECRET_ACCESS_KEY={credentials['aws_secret_access_key']}\\n")
-              if credentials.get("aws_session_token"):
-                  env_file.write(f"AWS_SESSION_TOKEN={credentials['aws_session_token']}\\n")
-              if credentials.get("aws_region"):
-                  env_file.write(f"AWS_DEFAULT_REGION={credentials['aws_region']}\\n")
+            env_file.write(f"AWS_ACCESS_KEY_ID={credentials['aws_access_key_id']}\n")
+            env_file.write(f"AWS_SECRET_ACCESS_KEY={credentials['aws_secret_access_key']}\n")
+
+            if credentials.get("aws_session_token"):
+                env_file.write(f"AWS_SESSION_TOKEN={credentials['aws_session_token']}\n")
+
+            if credentials.get("aws_region"):
+                env_file.write(f"AWS_DEFAULT_REGION={credentials['aws_region']}\n")
           PYEOF
 
       - name: Pull data with DVC
